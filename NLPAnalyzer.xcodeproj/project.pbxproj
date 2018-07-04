@@ -1,0 +1,578 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9A3451EC20E272AE00B9A639 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3451EB20E272AE00B9A639 /* AppDelegate.swift */; };
+		9A3451EE20E272AE00B9A639 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3451ED20E272AE00B9A639 /* ViewController.swift */; };
+		9A3451F020E272B000B9A639 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A3451EF20E272B000B9A639 /* Assets.xcassets */; };
+		9A3451F320E272B000B9A639 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A3451F120E272B000B9A639 /* Main.storyboard */; };
+		9A3451FF20E272B000B9A639 /* NLPAnalyzerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3451FE20E272B000B9A639 /* NLPAnalyzerTests.swift */; };
+		9A34520A20E272B000B9A639 /* NLPAnalyzerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A34520920E272B000B9A639 /* NLPAnalyzerUITests.swift */; };
+		9A34521A20E2732500B9A639 /* NLProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A34521920E2732500B9A639 /* NLProcessor.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9A3451FB20E272B000B9A639 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9A3451E020E272AE00B9A639 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9A3451E720E272AE00B9A639;
+			remoteInfo = NLPAnalyzer;
+		};
+		9A34520620E272B000B9A639 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9A3451E020E272AE00B9A639 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9A3451E720E272AE00B9A639;
+			remoteInfo = NLPAnalyzer;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		9A3451E820E272AE00B9A639 /* NLPAnalyzer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NLPAnalyzer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9A3451EB20E272AE00B9A639 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		9A3451ED20E272AE00B9A639 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		9A3451EF20E272B000B9A639 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9A3451F220E272B000B9A639 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		9A3451F420E272B000B9A639 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9A3451F520E272B000B9A639 /* NLPAnalyzer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NLPAnalyzer.entitlements; sourceTree = "<group>"; };
+		9A3451FA20E272B000B9A639 /* NLPAnalyzerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NLPAnalyzerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9A3451FE20E272B000B9A639 /* NLPAnalyzerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLPAnalyzerTests.swift; sourceTree = "<group>"; };
+		9A34520020E272B000B9A639 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9A34520520E272B000B9A639 /* NLPAnalyzerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NLPAnalyzerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9A34520920E272B000B9A639 /* NLPAnalyzerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLPAnalyzerUITests.swift; sourceTree = "<group>"; };
+		9A34520B20E272B000B9A639 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9A34521920E2732500B9A639 /* NLProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLProcessor.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9A3451E520E272AE00B9A639 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9A3451F720E272B000B9A639 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9A34520220E272B000B9A639 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9A3451DF20E272AE00B9A639 = {
+			isa = PBXGroup;
+			children = (
+				9A3451EA20E272AE00B9A639 /* NLPAnalyzer */,
+				9A3451FD20E272B000B9A639 /* NLPAnalyzerTests */,
+				9A34520820E272B000B9A639 /* NLPAnalyzerUITests */,
+				9A3451E920E272AE00B9A639 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9A3451E920E272AE00B9A639 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9A3451E820E272AE00B9A639 /* NLPAnalyzer.app */,
+				9A3451FA20E272B000B9A639 /* NLPAnalyzerTests.xctest */,
+				9A34520520E272B000B9A639 /* NLPAnalyzerUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9A3451EA20E272AE00B9A639 /* NLPAnalyzer */ = {
+			isa = PBXGroup;
+			children = (
+				9A3451EB20E272AE00B9A639 /* AppDelegate.swift */,
+				9A3451ED20E272AE00B9A639 /* ViewController.swift */,
+				9A3451EF20E272B000B9A639 /* Assets.xcassets */,
+				9A3451F120E272B000B9A639 /* Main.storyboard */,
+				9A3451F420E272B000B9A639 /* Info.plist */,
+				9A3451F520E272B000B9A639 /* NLPAnalyzer.entitlements */,
+				9A34521920E2732500B9A639 /* NLProcessor.swift */,
+			);
+			path = NLPAnalyzer;
+			sourceTree = "<group>";
+		};
+		9A3451FD20E272B000B9A639 /* NLPAnalyzerTests */ = {
+			isa = PBXGroup;
+			children = (
+				9A3451FE20E272B000B9A639 /* NLPAnalyzerTests.swift */,
+				9A34520020E272B000B9A639 /* Info.plist */,
+			);
+			path = NLPAnalyzerTests;
+			sourceTree = "<group>";
+		};
+		9A34520820E272B000B9A639 /* NLPAnalyzerUITests */ = {
+			isa = PBXGroup;
+			children = (
+				9A34520920E272B000B9A639 /* NLPAnalyzerUITests.swift */,
+				9A34520B20E272B000B9A639 /* Info.plist */,
+			);
+			path = NLPAnalyzerUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9A3451E720E272AE00B9A639 /* NLPAnalyzer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9A34520E20E272B000B9A639 /* Build configuration list for PBXNativeTarget "NLPAnalyzer" */;
+			buildPhases = (
+				9A3451E420E272AE00B9A639 /* Sources */,
+				9A3451E520E272AE00B9A639 /* Frameworks */,
+				9A3451E620E272AE00B9A639 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NLPAnalyzer;
+			productName = NLPAnalyzer;
+			productReference = 9A3451E820E272AE00B9A639 /* NLPAnalyzer.app */;
+			productType = "com.apple.product-type.application";
+		};
+		9A3451F920E272B000B9A639 /* NLPAnalyzerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9A34521120E272B000B9A639 /* Build configuration list for PBXNativeTarget "NLPAnalyzerTests" */;
+			buildPhases = (
+				9A3451F620E272B000B9A639 /* Sources */,
+				9A3451F720E272B000B9A639 /* Frameworks */,
+				9A3451F820E272B000B9A639 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9A3451FC20E272B000B9A639 /* PBXTargetDependency */,
+			);
+			name = NLPAnalyzerTests;
+			productName = NLPAnalyzerTests;
+			productReference = 9A3451FA20E272B000B9A639 /* NLPAnalyzerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		9A34520420E272B000B9A639 /* NLPAnalyzerUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9A34521420E272B000B9A639 /* Build configuration list for PBXNativeTarget "NLPAnalyzerUITests" */;
+			buildPhases = (
+				9A34520120E272B000B9A639 /* Sources */,
+				9A34520220E272B000B9A639 /* Frameworks */,
+				9A34520320E272B000B9A639 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9A34520720E272B000B9A639 /* PBXTargetDependency */,
+			);
+			name = NLPAnalyzerUITests;
+			productName = NLPAnalyzerUITests;
+			productReference = 9A34520520E272B000B9A639 /* NLPAnalyzerUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9A3451E020E272AE00B9A639 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0940;
+				LastUpgradeCheck = 0940;
+				ORGANIZATIONNAME = "Erdal Güzel";
+				TargetAttributes = {
+					9A3451E720E272AE00B9A639 = {
+						CreatedOnToolsVersion = 9.4.1;
+					};
+					9A3451F920E272B000B9A639 = {
+						CreatedOnToolsVersion = 9.4.1;
+						TestTargetID = 9A3451E720E272AE00B9A639;
+					};
+					9A34520420E272B000B9A639 = {
+						CreatedOnToolsVersion = 9.4.1;
+						TestTargetID = 9A3451E720E272AE00B9A639;
+					};
+				};
+			};
+			buildConfigurationList = 9A3451E320E272AE00B9A639 /* Build configuration list for PBXProject "NLPAnalyzer" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 9A3451DF20E272AE00B9A639;
+			productRefGroup = 9A3451E920E272AE00B9A639 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9A3451E720E272AE00B9A639 /* NLPAnalyzer */,
+				9A3451F920E272B000B9A639 /* NLPAnalyzerTests */,
+				9A34520420E272B000B9A639 /* NLPAnalyzerUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9A3451E620E272AE00B9A639 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9A3451F020E272B000B9A639 /* Assets.xcassets in Resources */,
+				9A3451F320E272B000B9A639 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9A3451F820E272B000B9A639 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9A34520320E272B000B9A639 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9A3451E420E272AE00B9A639 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9A3451EE20E272AE00B9A639 /* ViewController.swift in Sources */,
+				9A3451EC20E272AE00B9A639 /* AppDelegate.swift in Sources */,
+				9A34521A20E2732500B9A639 /* NLProcessor.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9A3451F620E272B000B9A639 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9A3451FF20E272B000B9A639 /* NLPAnalyzerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9A34520120E272B000B9A639 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9A34520A20E272B000B9A639 /* NLPAnalyzerUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9A3451FC20E272B000B9A639 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9A3451E720E272AE00B9A639 /* NLPAnalyzer */;
+			targetProxy = 9A3451FB20E272B000B9A639 /* PBXContainerItemProxy */;
+		};
+		9A34520720E272B000B9A639 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9A3451E720E272AE00B9A639 /* NLPAnalyzer */;
+			targetProxy = 9A34520620E272B000B9A639 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		9A3451F120E272B000B9A639 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9A3451F220E272B000B9A639 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		9A34520C20E272B000B9A639 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		9A34520D20E272B000B9A639 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		9A34520F20E272B000B9A639 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = NLPAnalyzer/NLPAnalyzer.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = NLPAnalyzer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.app.NLPAnalyzer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		9A34521020E272B000B9A639 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = NLPAnalyzer/NLPAnalyzer.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = NLPAnalyzer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.app.NLPAnalyzer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
+		9A34521220E272B000B9A639 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = NLPAnalyzerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.app.NLPAnalyzerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NLPAnalyzer.app/Contents/MacOS/NLPAnalyzer";
+			};
+			name = Debug;
+		};
+		9A34521320E272B000B9A639 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = NLPAnalyzerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.app.NLPAnalyzerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NLPAnalyzer.app/Contents/MacOS/NLPAnalyzer";
+			};
+			name = Release;
+		};
+		9A34521520E272B000B9A639 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = NLPAnalyzerUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.app.NLPAnalyzerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TEST_TARGET_NAME = NLPAnalyzer;
+			};
+			name = Debug;
+		};
+		9A34521620E272B000B9A639 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = NLPAnalyzerUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.app.NLPAnalyzerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TEST_TARGET_NAME = NLPAnalyzer;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9A3451E320E272AE00B9A639 /* Build configuration list for PBXProject "NLPAnalyzer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9A34520C20E272B000B9A639 /* Debug */,
+				9A34520D20E272B000B9A639 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9A34520E20E272B000B9A639 /* Build configuration list for PBXNativeTarget "NLPAnalyzer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9A34520F20E272B000B9A639 /* Debug */,
+				9A34521020E272B000B9A639 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9A34521120E272B000B9A639 /* Build configuration list for PBXNativeTarget "NLPAnalyzerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9A34521220E272B000B9A639 /* Debug */,
+				9A34521320E272B000B9A639 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9A34521420E272B000B9A639 /* Build configuration list for PBXNativeTarget "NLPAnalyzerUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9A34521520E272B000B9A639 /* Debug */,
+				9A34521620E272B000B9A639 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9A3451E020E272AE00B9A639 /* Project object */;
+}
