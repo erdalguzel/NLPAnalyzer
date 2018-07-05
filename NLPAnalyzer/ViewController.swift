@@ -74,25 +74,29 @@ class ViewController: NSViewController {
             outputFilepath = outputPathTextField.stringValue
             partsOfSpeechDict2 = partsOfSpeech(for: inputFileString)
             writeToJSONFile(for: outputFilepath, messageDictionary:partsOfSpeechDict2)
-        } else if tokenizeBox.state == .on {
+        }
+        if tokenizeBox.state == .on {
             filenameString = "Tokenize" + String(fileNo) + ".json"
             inputFileString = processTextFile(for: inputPathTextField.stringValue)
             outputFilepath = outputPathTextField.stringValue
             tokenizeDict2 = tokenizeText(for: inputFileString)
             writeToJSONFile(for: outputFilepath, messageDictionary:tokenizeDict2)
-        } else if recognitionBox.state == .on {
+        }
+        if recognitionBox.state == .on {
             filenameString = "EntityRecognition" + String(fileNo) + ".json"
             inputFileString = processTextFile(for: inputPathTextField.stringValue)
             outputFilepath = outputPathTextField.stringValue
             entityRecognitionDict2 = entityRecognition(for: inputFileString)
             writeToJSONFile(for: outputFilepath, messageDictionary:entityRecognitionDict2)
-        } else if lemmatizeCheckBox.state == .on {
+        }
+        if lemmatizeCheckBox.state == .on {
             filenameString = "PartsOfSpeech" + String(fileNo) + ".json"
             inputFileString = processTextFile(for: inputPathTextField.stringValue)
             outputFilepath = outputPathTextField.stringValue
             lemmatizeDict2 = lemmatizeWord(for: inputFileString)
             writeToJSONFile(for: outputFilepath, messageDictionary:lemmatizeDict2)
-        } else {
+        }
+        else {
             return
         }
     }
