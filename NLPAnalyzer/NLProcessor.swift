@@ -16,26 +16,10 @@ func traverseDirectory() {
     
     let filemanager = FileManager.default
     let enumerator: FileManager.DirectoryEnumerator = filemanager.enumerator(atPath: url.path)!
-    while let element = enumerator.nextObject() as? String, element.hasSuffix(".txt") {
+    while let element = enumerator.nextObject() as? String, element.hasSuffix("txt") {
         
     }
 }
-
-/*
-func writeToJSONFile(for filepath: String, messageDictionary: Dictionary<String, String>) {
-    var _: String, _: String
-    let encoder = JSONEncoder()
-    encoder.outputFormatting = .prettyPrinted
-    for(key, value) in messageDictionary {
-        let jsonObject = WordData(word_identifier: messageDictionary[key]!, word: messageDictionary[value]!)
-        let encodedData = try! encoder.encode(jsonObject)
-        try! encodedData.write(to: URL(fileURLWithPath: filepath))
-        //try jsonData.write(to: URL(fileURLWithPath: filepath), options: .atomic)
-        //print(jsonString!)
-        print(encodedData.description)
-    }
-}
-*/
 
 func writeToJSONFile(for filepath: String, messageDictionary: Dictionary<String, String>) {
     if let jsonData = try? JSONSerialization.data(withJSONObject: messageDictionary, options: .prettyPrinted) {
