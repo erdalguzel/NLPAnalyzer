@@ -1,5 +1,7 @@
 import Foundation
 
+//In main four functions debugger does not enter enumerateTags() method.Why?
+
 let tagger = NSLinguisticTagger(tagSchemes: [.lemma, .lexicalClass, .nameType, .tokenType, .language], options: 0)
 let options: NSLinguisticTagger.Options = [.omitPunctuation, .omitWhitespace]
 
@@ -7,11 +9,6 @@ var partsOfSpeechDict: Dictionary<String, String> = [:]
 var lemmatizeDict: Dictionary<String, String> = [:]
 var tokenizeDict: Dictionary<String, String> = [:]
 var entityRecognitionDict: Dictionary<String, String> = [:]
-
-struct WordData: Codable {
-    var word_identifier: String
-    var word: String
-}
 
 func traverseDirectory() {
     let documentPath = NSSearchPathForDirectoriesInDomains(.allApplicationsDirectory, .localDomainMask, true)[0]
@@ -24,8 +21,9 @@ func traverseDirectory() {
     }
 }
 
+/*
 func writeToJSONFile(for filepath: String, messageDictionary: Dictionary<String, String>) {
-    var key, value: String
+    var _: String, _: String
     let encoder = JSONEncoder()
     encoder.outputFormatting = .prettyPrinted
     for(key, value) in messageDictionary {
@@ -37,11 +35,19 @@ func writeToJSONFile(for filepath: String, messageDictionary: Dictionary<String,
         print(encodedData.description)
     }
 }
+*/
+
+func writeToJSONFile(for filepath: String, messageDictionary: Dictionary<String, String>) {
+    if let jsonData = try? JSONSerialization.data(withJSONObject: messageDictionary, options: .prettyPrinted) {
+        let jsonString = String(data: jsonData, encoding: String.Encoding.utf16)
+        try? jsonString?.write(to: URL(fileURLWithPath: filepath), atomically: true, encoding: String.Encoding.utf16)
+    }
+}
 
 //Reads text to a string as a whole
 func processTextFile(for filepath: String) -> String {
-    var text: String = """
-"""
+    var text: String = ""
+    /*
     if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
         let fileURL = dir.appendingPathComponent(filepath)
         do {
@@ -50,6 +56,8 @@ func processTextFile(for filepath: String) -> String {
             print("Cannot read file")
         }
     }
+    */
+    text = try! String(contentsOf: URL(fileURLWithPath: filepath))
     return text
 }
 
@@ -59,63 +67,67 @@ func determineLanguage(for text: String) {
     print("Dominant languages is \(lang!)")
 }
 
-func tokenizeText(for text: String){
+func tokenizeText(for text: String) -> Dictionary<String, String> {
     var word_no: Int = 0
     tagger.string = text
-    let range = NSRange(location: 0, length: text.utf8.count)
+    let range = NSRange(location: 0, length: text.utf16.count)
     tagger.enumerateTags(in: range, unit: .word, scheme: .tokenType, options: options){ tag, tokenRange, stop in
         let word = (text as NSString).substring(with: tokenRange)
         //print(word)
         tokenizeDict.updateValue(word, forKey: String(word_no))
         word_no = word_no + 1
     }
+    return tokenizeDict
 }
 
-func lemmatizeWord(for text: String) {
+func lemmatizeWord(for text: String) -> Dictionary<String, String> {
     var sentence_no: Int = 0
     var key: String = "lemma"
     tagger.string = text
-    let range = NSRange(location: 0, length: text.utf8.count)
+    let range = NSRange(location: 0, length: text.utf16.count)
     tagger.enumerateTags(in: range, unit: .word, scheme: .lemma, options: options){tag, tokenRange, stop in
          if let lemma = tag?.rawValue {
             //print(lemma)
-            key = "Sentence" + String(sentence_no) + key
+            key += String(sentence_no)
             lemmatizeDict.updateValue(lemma, forKey: key)
         }
         sentence_no = sentence_no + 1
     }
+    return lemmatizeDict
 }
 
-func partsOfSpeech(for text: String) {
+func partsOfSpeech(for text: String) -> Dictionary<String, String> {
     var sentence_no: Int = 0
     tagger.string = text
-    let range = NSRange(location: 0, length: text.utf8.count)
+    let range = NSRange(location: 0, length: text.utf16.count)
     tagger.enumerateTags(in: range, unit: .word, scheme: .lexicalClass, options: options){tag, tokenRange, _ in
         if let tag = tag {
             var word = (text as NSString).substring(with: tokenRange)
-            word = "Sentence" + String(sentence_no) + word
+            word += String(sentence_no)
             partsOfSpeechDict.updateValue(tag.rawValue, forKey: word)
             //print("\(word): \(tag.rawValue)")
         }
         sentence_no = sentence_no + 1
     }
+    return partsOfSpeechDict
 }
 
-func entityRecognition(for text: String) {
+func entityRecognition(for text: String) -> Dictionary<String, String> {
     var sentence_no: Int = 0
     var key: String = ""
     let tagger = NSLinguisticTagger(tagSchemes: [.nameType], options: 0)
     tagger.string = text
-    let range = NSRange(location: 0, length: text.utf8.count)
-    let options: NSLinguisticTagger.Options = [.omitPunctuation, .omitWhitespace, .joinNames]
+    let range = NSRange(location: 0, length: text.utf16.count)
+    let opts: NSLinguisticTagger.Options = [.omitPunctuation, .omitWhitespace, .joinNames]
     let tags: [NSLinguisticTag] = [.personalName, .placeName, .organizationName]
-    tagger.enumerateTags(in: range, unit: .word, scheme: .nameType, options: options) { tag, tokenRange, stop in
+    tagger.enumerateTags(in: range, unit: .word, scheme: .nameType, options: opts) { tag, tokenRange, stop in
         if let tag = tag, tags.contains(tag) {
             let name = (text as NSString).substring(with: tokenRange)
             key = tag.rawValue
-            key = "Sentence" + String(sentence_no) + key
+            key += String(sentence_no)
             entityRecognitionDict.updateValue(name, forKey: key)
         }
         sentence_no = sentence_no + 1
     }
+    return entityRecognitionDict
 }

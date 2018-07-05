@@ -17,7 +17,6 @@ class ViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     
     @IBAction func fileSelector(_ sender: AnyObject) {
@@ -28,7 +27,6 @@ class ViewController: NSViewController {
         dialog.canChooseDirectories = true
         dialog.canChooseFiles = true
         dialog.showsResizeIndicator = true
-        //dialog.nameFieldStringValue
         
         if dialog.runModal() == NSApplication.ModalResponse.OK {
             let result = dialog.url
@@ -61,6 +59,8 @@ class ViewController: NSViewController {
             return
         }
     }
+    
+    //If more than one action is selected, program does not enter other else-if conditions.Why?
     @IBAction func startButton(_ sender: NSButton) {
         
         var fileNo: Int = 0
@@ -72,74 +72,28 @@ class ViewController: NSViewController {
             filenameString = "PartsOfSpeech" + String(fileNo) + ".json"
             inputFileString = processTextFile(for: inputPathTextField.stringValue)
             outputFilepath = outputPathTextField.stringValue
-            partsOfSpeech(for: inputFileString)
-            writeToJSONFile(for: outputFilepath, messageDictionary: partsOfSpeechDict2)
-            progressBar.increment(by: 25.0)
+            partsOfSpeechDict2 = partsOfSpeech(for: inputFileString)
+            writeToJSONFile(for: outputFilepath, messageDictionary:partsOfSpeechDict2)
         } else if tokenizeBox.state == .on {
             filenameString = "Tokenize" + String(fileNo) + ".json"
             inputFileString = processTextFile(for: inputPathTextField.stringValue)
             outputFilepath = outputPathTextField.stringValue
-            tokenizeText(for: inputFileString)
-            writeToJSONFile(for: outputFilepath, messageDictionary: tokenizeDict2)
-            progressBar.increment(by: 25.0)
+            tokenizeDict2 = tokenizeText(for: inputFileString)
+            writeToJSONFile(for: outputFilepath, messageDictionary:tokenizeDict2)
         } else if recognitionBox.state == .on {
             filenameString = "EntityRecognition" + String(fileNo) + ".json"
             inputFileString = processTextFile(for: inputPathTextField.stringValue)
             outputFilepath = outputPathTextField.stringValue
-            entityRecognition(for: inputFileString)
-            writeToJSONFile(for: outputFilepath, messageDictionary: entityRecognitionDict2)
-            progressBar.increment(by: 25.0)
+            entityRecognitionDict2 = entityRecognition(for: inputFileString)
+            writeToJSONFile(for: outputFilepath, messageDictionary:entityRecognitionDict2)
         } else if lemmatizeCheckBox.state == .on {
             filenameString = "PartsOfSpeech" + String(fileNo) + ".json"
             inputFileString = processTextFile(for: inputPathTextField.stringValue)
             outputFilepath = outputPathTextField.stringValue
-            lemmatizeWord(for: inputFileString)
-            writeToJSONFile(for: outputFilepath, messageDictionary:  lemmatizeDict2)
-            progressBar.increment(by: 25.0)
+            lemmatizeDict2 = lemmatizeWord(for: inputFileString)
+            writeToJSONFile(for: outputFilepath, messageDictionary:lemmatizeDict2)
         } else {
             return
         }
     }
-    //Performs specific action when start button is pressed
-    /*
-    @IBAction func analyzeText(_ sender: NSButton) {
-        
-        var fileNo: Int = 0
-        var filenameString: String = ""
-        var inputFileString: String = ""
-        var outputFilepath: String = ""
-        
-        if speechBox.state == .on {
-            filenameString = "PartsOfSpeech" + String(fileNo) + ".json"
-            inputFileString = processTextFile(for: inputPathTextField.stringValue)
-            outputFilepath = outputPathTextField.stringValue
-            partsOfSpeech(for: inputFileString)
-            writeToJSONFile(for: outputFilepath, messageDictionary: partsOfSpeechDict2)
-            progressBar.increment(by: 25.0)
-        } else if tokenizeBox.state == .on {
-            filenameString = "Tokenize" + String(fileNo) + ".json"
-            inputFileString = processTextFile(for: inputPathTextField.stringValue)
-            outputFilepath = outputPathTextField.stringValue
-            tokenizeText(for: inputFileString)
-            writeToJSONFile(for: outputFilepath, messageDictionary: tokenizeDict2)
-            progressBar.increment(by: 25.0)
-        } else if recognitionBox.state == .on {
-            filenameString = "EntityRecognition" + String(fileNo) + ".json"
-            inputFileString = processTextFile(for: inputPathTextField.stringValue)
-            outputFilepath = outputPathTextField.stringValue
-            entityRecognition(for: inputFileString)
-            writeToJSONFile(for: outputFilepath, messageDictionary: entityRecognitionDict2)
-            progressBar.increment(by: 25.0)
-        } else if lemmatizeCheckBox.state == .on {
-            filenameString = "PartsOfSpeech" + String(fileNo) + ".json"
-            inputFileString = processTextFile(for: inputPathTextField.stringValue)
-            outputFilepath = outputPathTextField.stringValue
-            lemmatizeWord(for: inputFileString)
-            writeToJSONFile(for: outputFilepath, messageDictionary:  lemmatizeDict2)
-            progressBar.increment(by: 25.0)
-        } else {
-            return
-        }
-    }
- */
 }
