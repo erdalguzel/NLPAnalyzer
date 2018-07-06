@@ -1,7 +1,5 @@
 import Foundation
 
-//In main four functions debugger does not enter enumerateTags() method.Why?
-
 let tagger = NSLinguisticTagger(tagSchemes: [.lemma, .lexicalClass, .nameType, .tokenType, .language], options: 0)
 let options: NSLinguisticTagger.Options = [.omitPunctuation, .omitWhitespace]
 
@@ -21,10 +19,20 @@ func traverseDirectory() {
     }
 }
 
-func writeToJSONFile(for filepath: String, messageDictionary: Dictionary<String, String>) {
+func writeToJSONFile(for filepath: String, filename: String, messageDictionary: Dictionary<String, String>) {
+    /*
     if let jsonData = try? JSONSerialization.data(withJSONObject: messageDictionary, options: .prettyPrinted) {
         let jsonString = String(data: jsonData, encoding: String.Encoding.utf16)
-        try? jsonString?.write(to: URL(fileURLWithPath: filepath), atomically: true, encoding: String.Encoding.utf16)
+        try? jsonString?.write(to: URL(fileURLWithPath: filepath), atomically: true, encoding: String.Encoding.utf8)
+    }
+    */
+    if JSONSerialization.isValidJSONObject(messageDictionary) {
+        do {
+            let rawData = try JSONSerialization.data(withJSONObject: messageDictionary, options: .prettyPrinted)
+            try? rawData.write(to: URL(fileURLWithPath: filepath + "/" + filename), options: .atomicWrite)
+        } catch {
+            print("Error writing file")
+        }
     }
 }
 

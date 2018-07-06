@@ -73,28 +73,28 @@ class ViewController: NSViewController {
             inputFileString = processTextFile(for: inputPathTextField.stringValue)
             outputFilepath = outputPathTextField.stringValue
             partsOfSpeechDict2 = partsOfSpeech(for: inputFileString)
-            writeToJSONFile(for: outputFilepath, messageDictionary:partsOfSpeechDict2)
+            writeToJSONFile(for: outputFilepath, filename: filenameString, messageDictionary:partsOfSpeechDict2)
         }
         if tokenizeBox.state == .on {
             filenameString = "Tokenize" + String(fileNo) + ".json"
             inputFileString = processTextFile(for: inputPathTextField.stringValue)
             outputFilepath = outputPathTextField.stringValue
             tokenizeDict2 = tokenizeText(for: inputFileString)
-            writeToJSONFile(for: outputFilepath, messageDictionary:tokenizeDict2)
+            writeToJSONFile(for: outputFilepath, filename: filenameString, messageDictionary:tokenizeDict2)
         }
         if recognitionBox.state == .on {
             filenameString = "EntityRecognition" + String(fileNo) + ".json"
             inputFileString = processTextFile(for: inputPathTextField.stringValue)
             outputFilepath = outputPathTextField.stringValue
             entityRecognitionDict2 = entityRecognition(for: inputFileString)
-            writeToJSONFile(for: outputFilepath, messageDictionary:entityRecognitionDict2)
+            writeToJSONFile(for: outputFilepath, filename: filenameString, messageDictionary:entityRecognitionDict2)
         }
         if lemmatizeCheckBox.state == .on {
             filenameString = "PartsOfSpeech" + String(fileNo) + ".json"
             inputFileString = processTextFile(for: inputPathTextField.stringValue)
             outputFilepath = outputPathTextField.stringValue
             lemmatizeDict2 = lemmatizeWord(for: inputFileString)
-            writeToJSONFile(for: outputFilepath, messageDictionary:lemmatizeDict2)
+            writeToJSONFile(for: outputFilepath, filename: filenameString, messageDictionary:lemmatizeDict2)
         }
         else {
             return

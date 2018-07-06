@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		59EE6E018C8482BD64FCD30F /* Pods_NLPAnalyzer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB3A4CCABE2C528F53A24899 /* Pods_NLPAnalyzer.framework */; };
 		9A3451EC20E272AE00B9A639 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3451EB20E272AE00B9A639 /* AppDelegate.swift */; };
 		9A3451EE20E272AE00B9A639 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3451ED20E272AE00B9A639 /* ViewController.swift */; };
 		9A3451F020E272B000B9A639 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A3451EF20E272B000B9A639 /* Assets.xcassets */; };
@@ -34,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8DAD25E6C9E60BD5CE70C5C4 /* Pods_NLPAnalyzerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NLPAnalyzerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A3451E820E272AE00B9A639 /* NLPAnalyzer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NLPAnalyzer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A3451EB20E272AE00B9A639 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9A3451ED20E272AE00B9A639 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -48,6 +50,10 @@
 		9A34520920E272B000B9A639 /* NLPAnalyzerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLPAnalyzerUITests.swift; sourceTree = "<group>"; };
 		9A34520B20E272B000B9A639 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9A34521920E2732500B9A639 /* NLProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLProcessor.swift; sourceTree = "<group>"; };
+		9ED9D2401357DFE1D5106C7A /* Pods-NLPAnalyzer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NLPAnalyzer.release.xcconfig"; path = "Pods/Target Support Files/Pods-NLPAnalyzer/Pods-NLPAnalyzer.release.xcconfig"; sourceTree = "<group>"; };
+		AFF9FD74F7B27FF8D59F55F8 /* Pods_NLPAnalyzerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NLPAnalyzerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EB3A4CCABE2C528F53A24899 /* Pods_NLPAnalyzer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NLPAnalyzer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F7BFA6F81A1A349956F3FB45 /* Pods-NLPAnalyzer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NLPAnalyzer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NLPAnalyzer/Pods-NLPAnalyzer.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				59EE6E018C8482BD64FCD30F /* Pods_NLPAnalyzer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,6 +82,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0558A05EC9DA92FE2EF9CBFF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F7BFA6F81A1A349956F3FB45 /* Pods-NLPAnalyzer.debug.xcconfig */,
+				9ED9D2401357DFE1D5106C7A /* Pods-NLPAnalyzer.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		9A3451DF20E272AE00B9A639 = {
 			isa = PBXGroup;
 			children = (
@@ -82,6 +98,8 @@
 				9A3451FD20E272B000B9A639 /* NLPAnalyzerTests */,
 				9A34520820E272B000B9A639 /* NLPAnalyzerUITests */,
 				9A3451E920E272AE00B9A639 /* Products */,
+				0558A05EC9DA92FE2EF9CBFF /* Pods */,
+				E8C5C74FD26E1BDB7F536D50 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -127,6 +145,16 @@
 			path = NLPAnalyzerUITests;
 			sourceTree = "<group>";
 		};
+		E8C5C74FD26E1BDB7F536D50 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EB3A4CCABE2C528F53A24899 /* Pods_NLPAnalyzer.framework */,
+				8DAD25E6C9E60BD5CE70C5C4 /* Pods_NLPAnalyzerTests.framework */,
+				AFF9FD74F7B27FF8D59F55F8 /* Pods_NLPAnalyzerUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -134,9 +162,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9A34520E20E272B000B9A639 /* Build configuration list for PBXNativeTarget "NLPAnalyzer" */;
 			buildPhases = (
+				F9E623D6CF6659B3BE396C95 /* [CP] Check Pods Manifest.lock */,
 				9A3451E420E272AE00B9A639 /* Sources */,
 				9A3451E520E272AE00B9A639 /* Frameworks */,
 				9A3451E620E272AE00B9A639 /* Resources */,
+				93AF8BE40CE45F8AB17CBDBD /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -251,6 +281,45 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		93AF8BE40CE45F8AB17CBDBD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-NLPAnalyzer/Pods-NLPAnalyzer-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NLPAnalyzer/Pods-NLPAnalyzer-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F9E623D6CF6659B3BE396C95 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NLPAnalyzer-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		9A3451E420E272AE00B9A639 /* Sources */ = {
@@ -421,6 +490,7 @@
 		};
 		9A34520F20E272B000B9A639 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F7BFA6F81A1A349956F3FB45 /* Pods-NLPAnalyzer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = NLPAnalyzer/NLPAnalyzer.entitlements;
@@ -439,6 +509,7 @@
 		};
 		9A34521020E272B000B9A639 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9ED9D2401357DFE1D5106C7A /* Pods-NLPAnalyzer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = NLPAnalyzer/NLPAnalyzer.entitlements;
