@@ -30,8 +30,7 @@ func writeToJSONFile(for filepath: String, filename: String, messageDictionary: 
     }
 }
 
-//Reads text to a string as a whole
-func processTextFile(for filepath: String) -> String {
+func readTextFile(for filepath: String) -> String {
     var text: String = ""
     text = try! String(contentsOf: URL(fileURLWithPath: filepath))
     return text
@@ -50,7 +49,7 @@ func tokenizeText(for text: String) -> Dictionary<String, String> {
     tagger.enumerateTags(in: range, unit: .word, scheme: .tokenType, options: options){ tag, tokenRange, stop in
         let word = (text as NSString).substring(with: tokenRange)
         //print(word)
-        tokenizeDict.updateValue(word, forKey: String(word_no))
+        tokenizeDict.updateValue(word, forKey: "Token" + String(word_no))
         word_no = word_no + 1
     }
     return tokenizeDict
@@ -78,7 +77,7 @@ func partsOfSpeech(for text: String) -> Dictionary<String, String> {
     tagger.enumerateTags(in: range, unit: .word, scheme: .lexicalClass, options: options){tag, tokenRange, _ in
         if let tag = tag {
             var word = (text as NSString).substring(with: tokenRange)
-            word += String(sentence_no)
+            word = "partsOfSpeech-" + word
             partsOfSpeechDict.updateValue(tag.rawValue, forKey: word)
         }
         sentence_no = sentence_no + 1
