@@ -20,12 +20,6 @@ func traverseDirectory() {
 }
 
 func writeToJSONFile(for filepath: String, filename: String, messageDictionary: Dictionary<String, String>) {
-    /*
-    if let jsonData = try? JSONSerialization.data(withJSONObject: messageDictionary, options: .prettyPrinted) {
-        let jsonString = String(data: jsonData, encoding: String.Encoding.utf16)
-        try? jsonString?.write(to: URL(fileURLWithPath: filepath), atomically: true, encoding: String.Encoding.utf8)
-    }
-    */
     if JSONSerialization.isValidJSONObject(messageDictionary) {
         do {
             let rawData = try JSONSerialization.data(withJSONObject: messageDictionary, options: .prettyPrinted)
@@ -39,16 +33,6 @@ func writeToJSONFile(for filepath: String, filename: String, messageDictionary: 
 //Reads text to a string as a whole
 func processTextFile(for filepath: String) -> String {
     var text: String = ""
-    /*
-    if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-        let fileURL = dir.appendingPathComponent(filepath)
-        do {
-            text = try String(contentsOf: fileURL, encoding: .utf8)
-        } catch {
-            print("Cannot read file")
-        }
-    }
-    */
     text = try! String(contentsOf: URL(fileURLWithPath: filepath))
     return text
 }
@@ -79,7 +63,6 @@ func lemmatizeWord(for text: String) -> Dictionary<String, String> {
     let range = NSRange(location: 0, length: text.utf16.count)
     tagger.enumerateTags(in: range, unit: .word, scheme: .lemma, options: options){tag, tokenRange, stop in
          if let lemma = tag?.rawValue {
-            //print(lemma)
             key += String(sentence_no)
             lemmatizeDict.updateValue(lemma, forKey: key)
         }
@@ -97,7 +80,6 @@ func partsOfSpeech(for text: String) -> Dictionary<String, String> {
             var word = (text as NSString).substring(with: tokenRange)
             word += String(sentence_no)
             partsOfSpeechDict.updateValue(tag.rawValue, forKey: word)
-            //print("\(word): \(tag.rawValue)")
         }
         sentence_no = sentence_no + 1
     }
