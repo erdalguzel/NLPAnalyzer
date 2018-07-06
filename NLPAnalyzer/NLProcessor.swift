@@ -15,7 +15,7 @@ func traverseDirectory() {
     let filemanager = FileManager.default
     let enumerator: FileManager.DirectoryEnumerator = filemanager.enumerator(atPath: url.path)!
     while let element = enumerator.nextObject() as? String, element.hasSuffix("txt") {
-        
+        //readTextFile(filepath: "")
     }
 }
 
@@ -30,7 +30,7 @@ func writeToJSONFile(for filepath: String, filename: String, messageDictionary: 
     }
 }
 
-func readTextFile(for filepath: String) -> String {
+func readTextFile(filepath: String) -> String {
     var text: String = ""
     text = try! String(contentsOf: URL(fileURLWithPath: filepath))
     return text
