@@ -818,12 +818,13 @@
                     </view>
                     <connections>
                         <outlet property="inputPathTextField" destination="Tt2-dq-a2a" id="M9H-q4-5wI"/>
-                        <outlet property="lemmatizeCheckBox" destination="wDI-RK-SF4" id="DUl-7P-jge"/>
+                        <outlet property="lemmatizeCheckBox" destination="wDI-RK-SF4" id="tqQ-5L-54c"/>
                         <outlet property="outputPathTextField" destination="F1a-CU-Ogd" id="hEu-Ox-J9H"/>
+                        <outlet property="partsOfSpeechBox" destination="XIw-mj-4pm" id="rqI-u8-xQf"/>
                         <outlet property="progressBar" destination="Z9s-8A-HOW" id="MWJ-GG-Owb"/>
-                        <outlet property="recognitionBox" destination="cqQ-5q-Yhq" id="6BL-1d-JyU"/>
+                        <outlet property="recognitionBox" destination="cqQ-5q-Yhq" id="HgM-fI-TKg"/>
                         <outlet property="speechBox" destination="XIw-mj-4pm" id="slw-AR-lly"/>
-                        <outlet property="tokenizeBox" destination="Hu0-Xn-vUh" id="xkM-vD-Nei"/>
+                        <outlet property="tokenizeBox" destination="Hu0-Xn-vUh" id="ao0-Q6-pTo"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

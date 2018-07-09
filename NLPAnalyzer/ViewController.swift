@@ -1,11 +1,11 @@
 import Cocoa
 
 class ViewController: NSViewController {
-    
     @IBOutlet weak var lemmatizeCheckBox: NSButton!
-    @IBOutlet weak var recognitionBox: NSButton!
     @IBOutlet weak var tokenizeBox: NSButton!
-    @IBOutlet weak var speechBox: NSButton!
+    @IBOutlet weak var partsOfSpeechBox: NSButton!
+    @IBOutlet weak var recognitionBox: NSButton!
+    
     @IBOutlet weak var inputPathTextField: NSTextField!
     @IBOutlet weak var outputPathTextField: NSTextField!
     @IBOutlet weak var progressBar: NSProgressIndicator!
@@ -68,7 +68,7 @@ class ViewController: NSViewController {
         var inputFileString: String = ""
         var outputFilepath: String = ""
         
-        if speechBox.state == .on {
+        if partsOfSpeechBox.state == .on {
             filenameString = "PartsOfSpeech" + String(fileNo) + ".json"
             inputFileString = readTextFile(filepath: inputPathTextField.stringValue)
             outputFilepath = outputPathTextField.stringValue
@@ -99,5 +99,6 @@ class ViewController: NSViewController {
         else {
             return
         }
+        fileNo += 1
     }
 }

@@ -16,6 +16,7 @@ func traverseDirectory() {
     let enumerator: FileManager.DirectoryEnumerator = filemanager.enumerator(atPath: url.path)!
     while let element = enumerator.nextObject() as? String, element.hasSuffix("txt") {
         //readTextFile(filepath: "")
+        //writeToJSONFile(for: <#T##String#>, filename: <#T##String#>, messageDictionary: <#T##Dictionary<String, String>#>)
     }
 }
 
@@ -71,7 +72,6 @@ func lemmatizeWord(for text: String) -> Dictionary<String, String> {
 }
 
 func partsOfSpeech(for text: String) -> Dictionary<String, String> {
-    var sentence_no: Int = 0
     tagger.string = text
     let range = NSRange(location: 0, length: text.utf16.count)
     tagger.enumerateTags(in: range, unit: .word, scheme: .lexicalClass, options: options){tag, tokenRange, _ in
@@ -80,7 +80,6 @@ func partsOfSpeech(for text: String) -> Dictionary<String, String> {
             word = "partsOfSpeech-" + word
             partsOfSpeechDict.updateValue(tag.rawValue, forKey: word)
         }
-        sentence_no = sentence_no + 1
     }
     return partsOfSpeechDict
 }
