@@ -90,7 +90,7 @@ class ViewController: NSViewController {
             writeToJSONFile(for: outputFilepath, filename: filenameString, messageDictionary:entityRecognitionDict2)
         }
         if lemmatizeCheckBox.state == .on {
-            filenameString = "PartsOfSpeech" + String(fileNo) + ".json"
+            filenameString = "lemmatize" + String(fileNo) + ".json"
             inputFileString = readTextFile(filepath: inputPathTextField.stringValue)
             outputFilepath = outputPathTextField.stringValue
             lemmatizeDict2 = lemmatizeWord(for: inputFileString)
