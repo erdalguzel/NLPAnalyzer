@@ -20,10 +20,10 @@ func traverseDirectory() {
     }
 }
 
-func writeToJSONFile(for filepath: String, filename: String, messageDictionary: Dictionary<String, String>) {
+func writeToJSONFile(filepath: String, filename: String, messageDictionary: Dictionary<String, String>) {
     if JSONSerialization.isValidJSONObject(messageDictionary) {
         do {
-            let rawData = try JSONSerialization.data(withJSONObject: messageDictionary, options: .prettyPrinted)
+            let rawData = try JSONSerialization.data(withJSONObject: messageDictionary, options: [.prettyPrinted,.sortedKeys])
             try? rawData.write(to: URL(fileURLWithPath: filepath + "/" + filename), options: .atomicWrite)
         } catch {
             print("Error writing file")
@@ -37,13 +37,13 @@ func readTextFile(filepath: String) -> String {
     return text
 }
 
-func determineLanguage(for text: String) {
+func determineLanguage(text: String) {
     tagger.string = text
     let lang = tagger.dominantLanguage
     print("Dominant languages is \(lang!)")
 }
 
-func tokenizeText(for text: String) -> Dictionary<String, String> {
+func tokenizeText(text: String) -> Dictionary<String, String> {
     var word_no: Int = 0
     tagger.string = text
     let range = NSRange(location: 0, length: text.utf16.count)
@@ -56,19 +56,22 @@ func tokenizeText(for text: String) -> Dictionary<String, String> {
     return tokenizeDict
 }
 
-func lemmatizeWord(for text: String) -> Dictionary<String, String> {
-    var key: String = "lemma"
+func lemmatizeWord(text: String) -> Dictionary<String, String> {
+    //var sentence_no: Int = 0
+    let key: String = "lemma"
     tagger.string = text
     let range = NSRange(location: 0, length: text.utf16.count)
     tagger.enumerateTags(in: range, unit: .word, scheme: .lemma, options: options){tag, tokenRange, stop in
-         if let lemma = tag?.rawValue {
+        if let lemma = tag?.rawValue {
+            //key += String(sentence_no)
             lemmatizeDict.updateValue(lemma, forKey: key)
         }
+        //sentence_no = sentence_no + 1
     }
     return lemmatizeDict
 }
 
-func partsOfSpeech(for text: String) -> Dictionary<String, String> {
+func partsOfSpeech(text: String) -> Dictionary<String, String> {
     tagger.string = text
     let range = NSRange(location: 0, length: text.utf16.count)
     tagger.enumerateTags(in: range, unit: .word, scheme: .lexicalClass, options: options){tag, tokenRange, _ in
@@ -81,7 +84,7 @@ func partsOfSpeech(for text: String) -> Dictionary<String, String> {
     return partsOfSpeechDict
 }
 
-func entityRecognition(for text: String) -> Dictionary<String, String> {
+func entityRecognition(text: String) -> Dictionary<String, String> {
     var sentence_no: Int = 0
     var key: String = ""
     let tagger = NSLinguisticTagger(tagSchemes: [.nameType], options: 0)

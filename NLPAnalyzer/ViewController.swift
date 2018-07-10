@@ -72,33 +72,39 @@ class ViewController: NSViewController {
             filenameString = "PartsOfSpeech" + String(fileNo) + ".json"
             inputFileString = readTextFile(filepath: inputPathTextField.stringValue)
             outputFilepath = outputPathTextField.stringValue
-            partsOfSpeechDict2 = partsOfSpeech(for: inputFileString)
-            writeToJSONFile(for: outputFilepath, filename: filenameString, messageDictionary:partsOfSpeechDict2)
+            partsOfSpeechDict2 = partsOfSpeech(text: inputFileString)
+            writeToJSONFile(filepath: outputFilepath, filename: filenameString, messageDictionary:partsOfSpeechDict2)
         }
         if tokenizeBox.state == .on {
             filenameString = "Tokenize" + String(fileNo) + ".json"
             inputFileString = readTextFile(filepath: inputPathTextField.stringValue)
             outputFilepath = outputPathTextField.stringValue
-            tokenizeDict2 = tokenizeText(for: inputFileString)
-            writeToJSONFile(for: outputFilepath, filename: filenameString, messageDictionary:tokenizeDict2)
+            tokenizeDict2 = tokenizeText(text: inputFileString)
+            writeToJSONFile(filepath: outputFilepath, filename: filenameString, messageDictionary:tokenizeDict2)
         }
         if recognitionBox.state == .on {
             filenameString = "EntityRecognition" + String(fileNo) + ".json"
             inputFileString = readTextFile(filepath: inputPathTextField.stringValue)
             outputFilepath = outputPathTextField.stringValue
-            entityRecognitionDict2 = entityRecognition(for: inputFileString)
-            writeToJSONFile(for: outputFilepath, filename: filenameString, messageDictionary:entityRecognitionDict2)
+            entityRecognitionDict2 = entityRecognition(text: inputFileString)
+            writeToJSONFile(filepath: outputFilepath, filename: filenameString, messageDictionary:entityRecognitionDict2)
         }
         if lemmatizeCheckBox.state == .on {
-            filenameString = "lemmatize" + String(fileNo) + ".json"
+            filenameString = "Lemmatize" + String(fileNo) + ".json"
             inputFileString = readTextFile(filepath: inputPathTextField.stringValue)
             outputFilepath = outputPathTextField.stringValue
-            lemmatizeDict2 = lemmatizeWord(for: inputFileString)
-            writeToJSONFile(for: outputFilepath, filename: filenameString, messageDictionary:lemmatizeDict2)
+            lemmatizeDict2 = lemmatizeWord(text: inputFileString)
+            writeToJSONFile(filepath: outputFilepath, filename: filenameString, messageDictionary:lemmatizeDict2)
         }
         else {
             return
         }
         fileNo += 1
+    }
+    
+    func extractFileName(filepath: NSString) -> String {
+        let lastComponent: NSString = filepath.deletingPathExtension as NSString
+        let filename = lastComponent.lastPathComponent
+        return filename
     }
 }
