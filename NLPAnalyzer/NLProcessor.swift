@@ -57,16 +57,17 @@ func tokenizeText(text: String) -> Dictionary<String, String> {
 }
 
 func lemmatizeWord(text: String) -> Dictionary<String, String> {
-    //var sentence_no: Int = 0
-    let key: String = "lemma"
+    var sentence_no: Int = 0
+    var key: String = "lemma"
     tagger.string = text
     let range = NSRange(location: 0, length: text.utf16.count)
     tagger.enumerateTags(in: range, unit: .word, scheme: .lemma, options: options){tag, tokenRange, stop in
         if let lemma = tag?.rawValue {
-            //key += String(sentence_no)
+            sentence_no += 1
+            key = key + String(sentence_no)
             lemmatizeDict.updateValue(lemma, forKey: key)
+            key = "lemma"
         }
-        //sentence_no = sentence_no + 1
     }
     return lemmatizeDict
 }
