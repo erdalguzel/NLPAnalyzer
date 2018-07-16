@@ -14,6 +14,7 @@ class ViewController: NSViewController {
     var lemmatizeDict2: Dictionary<String, String> = [:]
     var tokenizeDict2: Dictionary<String, String> = [:]
     var entityRecognitionDict2: Dictionary<String, String> = [:]
+    var indexDict2: Dictionary<String, String> = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,11 +64,11 @@ class ViewController: NSViewController {
     
     @IBAction func startButton(_ sender: NSButton) {
         
-        var fileNo: Int = 0
-        var filenameString: String = ""
+        var out_fname: String = ""
         var inputFileString: String = ""
         var outputFilepath: String = ""
         
+        /*
         if partsOfSpeechBox.state == .on {
             filenameString = "PartsOfSpeech" + String(fileNo) + ".json"
             inputFileString = readTextFile(filepath: inputPathTextField.stringValue)
@@ -96,10 +97,31 @@ class ViewController: NSViewController {
             lemmatizeDict2 = lemmatizeWord(text: inputFileString)
             writeToJSONFile(filepath: outputFilepath, filename: filenameString, messageDictionary:lemmatizeDict2)
         }
+        */
+        
+        inputFileString = readTextFile(filepath: inputPathTextField.stringValue)
+        tokenizeDict2 = tokenizeText(text: inputFileString)
+        outputFilepath = outputPathTextField.stringValue
+        out_fname = extractFileName(filepath: inputPathTextField.stringValue as NSString)
+        
+        if partsOfSpeechBox.state == .on {
+            
+        }
+            
+        if lemmatizeCheckBox.state == .on {
+            
+        }
+        
+        if recognitionBox.state == .on {
+            out_fname = extractFileName(filepath: inputPathTextField.stringValue as NSString)
+            out_fname = out_fname + ".NER.json"
+            (entityRecognitionDict2, indexDict2) = entityRecognition(text: inputFileString)
+            writeToJSONFile(filepath: outputFilepath, filename: out_fname, dict1: entityRecognitionDict2, dict2: indexDict2, dict3: [:])
+        }
+        
         else {
             return
         }
-        fileNo += 1
     }
     
     func extractFileName(filepath: NSString) -> String {

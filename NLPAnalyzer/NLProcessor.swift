@@ -1,4 +1,5 @@
 import Foundation
+import SwiftyJSON
 
 let tagger = NSLinguisticTagger(tagSchemes: [.lemma, .lexicalClass, .nameType, .tokenType, .language], options: 0)
 let options: NSLinguisticTagger.Options = [.omitPunctuation, .omitWhitespace]
@@ -7,6 +8,7 @@ var partsOfSpeechDict: Dictionary<String, String> = [:]
 var lemmatizeDict: Dictionary<String, String> = [:]
 var tokenizeDict: Dictionary<String, String> = [:]
 var entityRecognitionDict: Dictionary<String, String> = [:]
+var indexDict: Dictionary<String,String> = [:]
 
 func traverseDirectory() {
     let documentPath = NSSearchPathForDirectoriesInDomains(.allApplicationsDirectory, .localDomainMask, true)[0]
@@ -19,7 +21,7 @@ func traverseDirectory() {
         //writeToJSONFile(for: <#T##String#>, filename: <#T##String#>, messageDictionary: <#T##Dictionary<String, String>#>)
     }
 }
-
+/*
 func writeToJSONFile(filepath: String, filename: String, messageDictionary: Dictionary<String, String>) {
     if JSONSerialization.isValidJSONObject(messageDictionary) {
         do {
@@ -29,6 +31,30 @@ func writeToJSONFile(filepath: String, filename: String, messageDictionary: Dict
             print("Error writing file")
         }
     }
+}
+*/
+
+//dict1 parameter always takes tokenize dictionary
+func writeToJSONFile(filepath: String, filename: String, dict1: [String:String], dict2: [String:String], dict3: [String:String]) {
+    var array1 = [[String:String]]()
+    dict1.map{array1.append([$0.key:$0.value])}
+    
+    var array2 = [[String:String]]()
+    dict2.map{array2.append([$0.key:$0.value])}
+    
+    var array3 = [[String:String]]()
+    dict3.map{array3.append([$0.key:$0.value])}
+    
+    var finalArray = [[String:String]]()
+    
+    for index in 0..<dict1.count {
+        var dict = array1[index]
+        dict.merge(array2[index]) {$1}
+        finalArray.append(dict)
+    }
+    //print(finalArray)
+    let jsonData = try! JSONSerialization.data(withJSONObject: finalArray, options: [JSONSerialization.WritingOptions.prettyPrinted,JSONSerialization.WritingOptions.sortedKeys])
+    try? jsonData.write(to: URL(fileURLWithPath: filepath + "/" + filename), options: .atomicWrite)
 }
 
 func readTextFile(filepath: String) -> String {
@@ -85,8 +111,9 @@ func partsOfSpeech(text: String) -> Dictionary<String, String> {
     return partsOfSpeechDict
 }
 
-func entityRecognition(text: String) -> Dictionary<String, String> {
+func entityRecognition(text: String) -> (Dictionary<String, String>, Dictionary<String,String>) {
     var sentence_no: Int = 0
+    var index: Int = 0
     var key: String = ""
     let tagger = NSLinguisticTagger(tagSchemes: [.nameType], options: 0)
     tagger.string = text
@@ -97,10 +124,13 @@ func entityRecognition(text: String) -> Dictionary<String, String> {
         if let tag = tag, tags.contains(tag) {
             let name = (text as NSString).substring(with: tokenRange)
             key = tag.rawValue
-            key += String(sentence_no)
+            key += ("-" + String(sentence_no))
             entityRecognitionDict.updateValue(name, forKey: key)
+            indexDict.updateValue(String(sentence_no), forKey: String(index))
         }
+        index = index + 1
         sentence_no = sentence_no + 1
     }
-    return entityRecognitionDict
+    print(indexDict)
+    return (entityRecognitionDict,indexDict)
 }
