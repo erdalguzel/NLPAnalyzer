@@ -1,5 +1,4 @@
 import Foundation
-import SwiftyJSON
 
 let tagger = NSLinguisticTagger(tagSchemes: [.lemma, .lexicalClass, .nameType, .tokenType, .language], options: 0)
 let options: NSLinguisticTagger.Options = [.omitPunctuation, .omitWhitespace]
@@ -10,52 +9,11 @@ var tokenizeDict: Dictionary<String, String> = [:]
 var entityRecognitionDict: Dictionary<String, String> = [:]
 var indexDict: Dictionary<String,String> = [:]
 
-func traverseDirectory() {
-    let documentPath = NSSearchPathForDirectoriesInDomains(.allApplicationsDirectory, .localDomainMask, true)[0]
-    let url: URL = URL(fileURLWithPath: documentPath)
-    
-    let filemanager = FileManager.default
-    let enumerator: FileManager.DirectoryEnumerator = filemanager.enumerator(atPath: url.path)!
-    while let element = enumerator.nextObject() as? String, element.hasSuffix("txt") {
-        //readTextFile(filepath: "")
-        //writeToJSONFile(for: <#T##String#>, filename: <#T##String#>, messageDictionary: <#T##Dictionary<String, String>#>)
-    }
-}
-/*
-func writeToJSONFile(filepath: String, filename: String, messageDictionary: Dictionary<String, String>) {
-    if JSONSerialization.isValidJSONObject(messageDictionary) {
-        do {
-            let rawData = try JSONSerialization.data(withJSONObject: messageDictionary, options: [.prettyPrinted,.sortedKeys])
-            try? rawData.write(to: URL(fileURLWithPath: filepath + "/" + filename), options: .atomicWrite)
-        } catch {
-            print("Error writing file")
-        }
-    }
-}
-*/
+let openCurlyBracket = "\t{", closedCurlyBracket = "}"
+let openSquareBracket = "[", closedSquareBracket = "]"
+let comma = ",", colon = " : ", quote = "\"", newline = "\n"
+let mixedChars = quote + colon + quote, mixedChars2 = quote + comma + quote, mixedChars3 =  quote + closedCurlyBracket + comma
 
-//dict1 parameter always takes tokenize dictionary
-func writeToJSONFile(filepath: String, filename: String, dict1: [String:String], dict2: [String:String], dict3: [String:String]) {
-    var array1 = [[String:String]]()
-    dict1.map{array1.append([$0.key:$0.value])}
-    
-    var array2 = [[String:String]]()
-    dict2.map{array2.append([$0.key:$0.value])}
-    
-    var array3 = [[String:String]]()
-    dict3.map{array3.append([$0.key:$0.value])}
-    
-    var finalArray = [[String:String]]()
-    
-    for index in 0..<dict1.count {
-        var dict = array1[index]
-        dict.merge(array2[index]) {$1}
-        finalArray.append(dict)
-    }
-    //print(finalArray)
-    let jsonData = try! JSONSerialization.data(withJSONObject: finalArray, options: [JSONSerialization.WritingOptions.prettyPrinted,JSONSerialization.WritingOptions.sortedKeys])
-    try? jsonData.write(to: URL(fileURLWithPath: filepath + "/" + filename), options: .atomicWrite)
-}
 
 func readTextFile(filepath: String) -> String {
     var text: String = ""
@@ -70,67 +28,143 @@ func determineLanguage(text: String) {
 }
 
 func tokenizeText(text: String) -> Dictionary<String, String> {
-    var word_no: Int = 0
+    var word_no: Int = 1
     tagger.string = text
     let range = NSRange(location: 0, length: text.utf16.count)
     tagger.enumerateTags(in: range, unit: .word, scheme: .tokenType, options: options){ tag, tokenRange, stop in
         let word = (text as NSString).substring(with: tokenRange)
-        //print(word)
-        tokenizeDict.updateValue(word, forKey: "Token" + String(word_no))
+        tokenizeDict.updateValue(word, forKey: "Token-" + String(word_no))
         word_no = word_no + 1
     }
     return tokenizeDict
 }
 
-func lemmatizeWord(text: String) -> Dictionary<String, String> {
-    var sentence_no: Int = 0
-    var key: String = "lemma"
-    tagger.string = text
-    let range = NSRange(location: 0, length: text.utf16.count)
+func lemmatize(word: String) -> String {
+    var str = ""
+    tagger.string = word
+    let range = NSRange(location: 0, length: word.utf16.count)
     tagger.enumerateTags(in: range, unit: .word, scheme: .lemma, options: options){tag, tokenRange, stop in
         if let lemma = tag?.rawValue {
-            sentence_no += 1
-            key = key + String(sentence_no)
-            lemmatizeDict.updateValue(lemma, forKey: key)
-            key = "lemma"
+            str = lemma
+        } else {
+            str = "N/A"
         }
     }
-    return lemmatizeDict
+    return str
 }
 
-func partsOfSpeech(text: String) -> Dictionary<String, String> {
-    tagger.string = text
-    let range = NSRange(location: 0, length: text.utf16.count)
+func performPartsOfSpeech(word: String) -> String {
+    tagger.string = word
+    var substr = "", postag = ""
+    let range = NSRange(location: 0, length: word.utf16.count)
     tagger.enumerateTags(in: range, unit: .word, scheme: .lexicalClass, options: options){tag, tokenRange, _ in
         if let tag = tag {
-            var word = (text as NSString).substring(with: tokenRange)
-            word = "partsOfSpeech-" + word
-            partsOfSpeechDict.updateValue(tag.rawValue, forKey: word)
+            substr = (word as NSString).substring(with: tokenRange)
+            postag = tag.rawValue
+        } else {
+            postag = "N/A"
         }
     }
-    return partsOfSpeechDict
+    return postag
 }
 
-func entityRecognition(text: String) -> (Dictionary<String, String>, Dictionary<String,String>) {
-    var sentence_no: Int = 0
-    var index: Int = 0
-    var key: String = ""
+func NamedEntityRecognition(word: String) -> String {
+    var keystr: String = "", name = ""
     let tagger = NSLinguisticTagger(tagSchemes: [.nameType], options: 0)
-    tagger.string = text
-    let range = NSRange(location: 0, length: text.utf16.count)
+    tagger.string = word
+    let range = NSRange(location: 0, length: word.utf16.count)
     let opts: NSLinguisticTagger.Options = [.omitPunctuation, .omitWhitespace, .joinNames]
     let tags: [NSLinguisticTag] = [.personalName, .placeName, .organizationName]
     tagger.enumerateTags(in: range, unit: .word, scheme: .nameType, options: opts) { tag, tokenRange, stop in
         if let tag = tag, tags.contains(tag) {
-            let name = (text as NSString).substring(with: tokenRange)
-            key = tag.rawValue
-            key += ("-" + String(sentence_no))
-            entityRecognitionDict.updateValue(name, forKey: key)
-            indexDict.updateValue(String(sentence_no), forKey: String(index))
+            name = (word as NSString).substring(with: tokenRange)
+            keystr = tag.rawValue
+        } else {
+            keystr = "N/A"
         }
-        index = index + 1
-        sentence_no = sentence_no + 1
     }
-    print(indexDict)
-    return (entityRecognitionDict,indexDict)
+    return keystr
 }
+
+func writeAsJSONFile(paramDict1: [String:String], paramDict2: [String:String], paramDict3: [String:String], filepath: String) {
+    let keys = getDictionaryKeys(dict: paramDict1)
+    var indexes: [String] = []
+    for x in 0..<keys.count {
+        let index = getSuffix(forString: keys[x])
+        indexes.append(index)
+    }
+    
+    writeString(whichString: openSquareBracket, filepath: filepath)
+    writeString(whichString: newline, filepath: filepath)
+    
+    for i in 0..<paramDict1.count {
+        writeString(whichString: openCurlyBracket, filepath: filepath)
+        writeString(whichString: quote, filepath: filepath)
+        writeString(whichString: "Token" + mixedChars, filepath: filepath)
+        writeString(whichString: paramDict1[keys[i]]! + mixedChars2, filepath: filepath)
+        writeString(whichString: "Lemma" + mixedChars, filepath: filepath)
+        writeString(whichString: paramDict2[keys[i]]! + mixedChars2, filepath: filepath)
+        writeString(whichString: "POS" + mixedChars, filepath: filepath)
+        writeString(whichString: paramDict3[keys[i]]! + quote + comma, filepath: filepath)
+        writeString(whichString: quote + "id" + mixedChars, filepath: filepath)
+        writeString(whichString: indexes[i] + mixedChars3, filepath: filepath)
+        writeString(whichString: newline, filepath: filepath)
+    }
+    writeString(whichString: closedSquareBracket, filepath: filepath)
+}
+
+func writeNERAsJSONFile(paramDict: [String:String], filepath: String) {
+    let keys = getDictionaryKeys(dict: paramDict)
+    var indexes: [String] = []
+    for k in 0..<keys.count{
+        let index = getSuffix(forString: keys[k])
+        indexes.append(index)
+    }
+    writeString(whichString: openSquareBracket, filepath: filepath)
+    writeString(whichString: newline, filepath: filepath)
+    
+    for a in 0..<paramDict.count {
+        writeString(whichString: openCurlyBracket, filepath: filepath)
+        writeString(whichString: quote, filepath: filepath)
+        writeString(whichString: "NER" + mixedChars, filepath: filepath)
+        writeString(whichString: paramDict[keys[a]]! + mixedChars2, filepath: filepath)
+        writeString(whichString: "id" + mixedChars, filepath: filepath)
+        writeString(whichString: indexes[a] + mixedChars3, filepath: filepath)
+        writeString(whichString: newline, filepath: filepath)
+    }
+    writeString(whichString: closedSquareBracket, filepath: filepath)
+}
+
+
+func writeString(whichString: String, filepath: String) {
+    let manager = FileManager.default
+    if manager.fileExists(atPath: filepath) == false {
+        manager.createFile(atPath: filepath, contents: nil, attributes: nil)
+    }
+    if let fileUpdater = try? FileHandle(forUpdating: URL(fileURLWithPath: filepath)) {
+        fileUpdater.seekToEndOfFile()
+        fileUpdater.write(whichString.data(using: String.Encoding.utf8)!)
+    }
+}
+
+func getDictionaryKeys(dict: [String:String]) -> Array<String> {
+    return Array(dict.keys.sorted(by: <))
+}
+
+func getSuffix(forString: String) -> String {
+    var number = ""
+    if let index = forString.range(of: "-")?.upperBound {
+        let substring = forString.suffix(from: index)
+        number = String(substring)
+    }
+    return number
+}
+
+//func checkIfFileExists(filepath: String) {
+//    let filemanager = FileManager.default
+//    if filemanager.fileExists(atPath: filepath) {
+//        try! filemanager.removeItem(atPath: filepath)
+//    } else {
+//        print("No such file existed before.\n")
+//    }
+//}
