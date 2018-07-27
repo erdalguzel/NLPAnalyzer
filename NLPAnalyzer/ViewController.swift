@@ -12,8 +12,10 @@ class ViewController: NSViewController {
     
     var POSDict: Dictionary<String, String> = [:]
     var lemmaDict: Dictionary<String, String> = [:]
-    var tokenizeDict2: Dictionary<String, String> = [:]
+    var tokenDict: Dictionary<String, String> = [:]
     var entityRecognitionDict: Dictionary<String, String> = [:]
+    var filenameArray: [String] = [], nameArray: [String] = []
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +25,6 @@ class ViewController: NSViewController {
         let dialog = NSOpenPanel()
         
         dialog.title = "Choose a file"
-        dialog.allowsMultipleSelection = true
         dialog.canChooseDirectories = true
         dialog.canChooseFiles = true
         dialog.showsResizeIndicator = true
@@ -65,15 +66,15 @@ class ViewController: NSViewController {
         var out_fname: String = ""
         var inputFileString: String = ""
         var outputFilepath: String = ""
-
+        
         inputFileString = readTextFile(filepath: inputPathTextField.stringValue)
-        tokenizeDict2 = tokenizeText(text: inputFileString)
+        tokenDict = tokenizeText(text: inputFileString)
         outputFilepath = outputPathTextField.stringValue
         out_fname = extractFileName(filepath: inputPathTextField.stringValue as NSString)
         out_fname = out_fname + ".morph.json"
-
+        
         var newstr = "", pos = "", ner = ""
-        for (key, value) in tokenizeDict2 {
+        for (key, value) in tokenDict {
             newstr = lemmatize(word: value)
             lemmaDict.updateValue(newstr, forKey: key)
             pos = performPartsOfSpeech(word: value)
@@ -84,30 +85,32 @@ class ViewController: NSViewController {
         outputFilepath += ("/" + out_fname)
         
         if tokenizeBox.state == .off {
-            tokenizeDict2 = ["":""]
+            for (k,_) in tokenDict {
+                tokenDict[k] = ""
+            }
         }
         if lemmatizeCheckBox.state == .off {
-            lemmaDict = ["":""]
+            for (k,_) in lemmaDict {
+                lemmaDict[k] = ""
+            }
         }
-        if lemmatizeCheckBox.state == .off {
-            POSDict = ["":""]
+        if partsOfSpeechBox.state == .off {
+            for (k,_) in partsOfSpeechDict {
+                partsOfSpeechDict[k] = ""
+            }
         }
-        writeAsJSONFile(paramDict1: tokenizeDict2, paramDict2: lemmaDict, paramDict3: POSDict, filepath: outputFilepath)
+        writeAsJSONFile(paramDict1: tokenDict, paramDict2: lemmaDict, paramDict3: POSDict, filepath: outputFilepath)
         
         outputFilepath = outputPathTextField.stringValue
         out_fname = extractFileName(filepath: inputPathTextField.stringValue as NSString)
         out_fname += ".NER.json"
         outputFilepath += ("/" + out_fname)
         if recognitionBox.state == .off {
-            entityRecognitionDict = ["":""]
+            for (k,_) in entityRecognitionDict {
+                entityRecognitionDict[k] = ""
+            }
         }
+        
         writeNERAsJSONFile(paramDict: entityRecognitionDict, filepath: outputFilepath)
-    }
-
-
-    func extractFileName(filepath: NSString) -> String {
-        let lastComponent: NSString = filepath.deletingPathExtension as NSString
-        let filename = lastComponent.lastPathComponent
-        return filename
     }
 }
