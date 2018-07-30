@@ -63,15 +63,31 @@ class ViewController: NSViewController {
     
     
     @IBAction func startButton(_ sender: NSButton) {
-        var out_fname: String = ""
-        let inputFileString: String = readTextFile(filepath: inputPathTextField.stringValue)
+        let out_fname: String = ""
+        var inputFileString: String = ""
         var outputFilepath: String = outputPathTextField.stringValue
         let fileList = getFilenames(path: outputFilepath)
 //        print(fileList)
 
-        tokenDict = tokenizeText(text: inputFileString)
-        out_fname = extractFileName(filepath: inputPathTextField.stringValue as NSString)
-        out_fname = out_fname + ".morph.json"
+//        if !fileList.isEmpty {
+//            print("This is a directory\n")
+//            print("files:", fileList)
+//            for item in fileList {
+//                inputFileString = readTextFile(filepath: inputPathTextField.stringValue + item)
+//                outputFilepath += ("/" + item)
+//            }
+//        } else {
+//            print("This is a file\n")
+            inputFileString = readTextFile(filepath: inputPathTextField.stringValue)
+            beginProcess(inputText: inputFileString, output_filename: out_fname, outputPath: outputFilepath)
+//        }
+    }
+    
+    func beginProcess(inputText: String, output_filename: String, outputPath: String) {
+        var temp_outfname = output_filename, temp_outPath = outputPath
+        tokenDict = tokenizeText(text: inputText)
+        temp_outfname = extractFileName(filepath: inputPathTextField.stringValue as NSString)
+        temp_outfname = temp_outfname + ".morph.json"
         (lemmaDict,POSDict,entityRecognitionDict) = fillDictionaries(dict: tokenDict)
         
         if tokenizeBox.state == .off {
@@ -89,20 +105,20 @@ class ViewController: NSViewController {
                 POSDict[k] = ""
             }
         }
-
-        outputFilepath += ("/" + out_fname)
-        writeAsJSONFile(paramDict1: tokenDict, paramDict2: lemmaDict, paramDict3: POSDict, filepath: outputFilepath)
         
-        outputFilepath = outputPathTextField.stringValue
-        out_fname = extractFileName(filepath: inputPathTextField.stringValue as NSString)
-        out_fname += ".NER.json"
-        outputFilepath += ("/" + out_fname)
+        temp_outPath += ("/" + temp_outfname)
+        writeAsJSONFile(paramDict1: tokenDict, paramDict2: lemmaDict, paramDict3: POSDict, filepath: temp_outPath)
+        
+        temp_outPath = outputPathTextField.stringValue
+        temp_outfname = extractFileName(filepath: inputPathTextField.stringValue as NSString)
+        temp_outfname += ".NER.json"
+        temp_outPath += ("/" + temp_outfname)
         if recognitionBox.state == .off {
             for (k,_) in entityRecognitionDict {
                 entityRecognitionDict[k] = ""
             }
         }
-        writeNERAsJSONFile(paramDict: entityRecognitionDict, filepath: outputFilepath)
+        writeNERAsJSONFile(paramDict: entityRecognitionDict, filepath: temp_outPath)
     }
     
     func fillDictionaries(dict: [String:String]) -> ([String:String], [String:String], [String:String]) {
@@ -111,8 +127,9 @@ class ViewController: NSViewController {
         let sortedKeys = Array(tempDict1.keys).sorted(by: <)
         var index = 0
         
-        for (key, _) in tempDict1 {
-            let value = tempDict1[sortedKeys[index]]
+        for (_, _) in tempDict1 {
+            let key = sortedKeys[index]
+            let value = tempDict1[key]
             newstr = lemmatize(word: value!)
             tempDict2.updateValue(newstr, forKey: key)
             pos = performPartsOfSpeech(word: value!)

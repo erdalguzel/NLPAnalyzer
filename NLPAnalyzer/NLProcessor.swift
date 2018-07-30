@@ -21,12 +21,6 @@ func readTextFile(filepath: String) -> String {
     return text
 }
 
-func determineLanguage(text: String) {
-    tagger.string = text
-    let lang = tagger.dominantLanguage
-    print("Dominant languages is \(lang!)")
-}
-
 func tokenizeText(text: String) -> [String:String] {
     var word_no: Int = 1
     tagger.string = text
