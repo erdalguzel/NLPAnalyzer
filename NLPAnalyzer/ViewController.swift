@@ -9,7 +9,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var inputPathTextField: NSTextField!
     @IBOutlet weak var outputPathTextField: NSTextField!
     @IBOutlet weak var progressBar: NSProgressIndicator!
-    
+
     var POSDict: Dictionary<String, String> = [:]
     var lemmaDict: Dictionary<String, String> = [:]
     var tokenDict: Dictionary<String, String> = [:]
@@ -64,25 +64,15 @@ class ViewController: NSViewController {
     
     @IBAction func startButton(_ sender: NSButton) {
         var out_fname: String = ""
-        var inputFileString: String = ""
-        var outputFilepath: String = ""
-        
-        inputFileString = readTextFile(filepath: inputPathTextField.stringValue)
+        let inputFileString: String = readTextFile(filepath: inputPathTextField.stringValue)
+        var outputFilepath: String = outputPathTextField.stringValue
+        let fileList = getFilenames(path: outputFilepath)
+//        print(fileList)
+
         tokenDict = tokenizeText(text: inputFileString)
-        outputFilepath = outputPathTextField.stringValue
         out_fname = extractFileName(filepath: inputPathTextField.stringValue as NSString)
         out_fname = out_fname + ".morph.json"
-        
-        var newstr = "", pos = "", ner = ""
-        for (key, value) in tokenDict {
-            newstr = lemmatize(word: value)
-            lemmaDict.updateValue(newstr, forKey: key)
-            pos = performPartsOfSpeech(word: value)
-            POSDict.updateValue(pos, forKey: key)
-            ner = NamedEntityRecognition(word: value)
-            entityRecognitionDict.updateValue(ner, forKey: key)
-        }
-        outputFilepath += ("/" + out_fname)
+        (lemmaDict,POSDict,entityRecognitionDict) = fillDictionaries(dict: tokenDict)
         
         if tokenizeBox.state == .off {
             for (k,_) in tokenDict {
@@ -95,10 +85,12 @@ class ViewController: NSViewController {
             }
         }
         if partsOfSpeechBox.state == .off {
-            for (k,_) in partsOfSpeechDict {
-                partsOfSpeechDict[k] = ""
+            for (k,_) in POSDict {
+                POSDict[k] = ""
             }
         }
+
+        outputFilepath += ("/" + out_fname)
         writeAsJSONFile(paramDict1: tokenDict, paramDict2: lemmaDict, paramDict3: POSDict, filepath: outputFilepath)
         
         outputFilepath = outputPathTextField.stringValue
@@ -110,7 +102,31 @@ class ViewController: NSViewController {
                 entityRecognitionDict[k] = ""
             }
         }
-        
         writeNERAsJSONFile(paramDict: entityRecognitionDict, filepath: outputFilepath)
+    }
+    
+    func fillDictionaries(dict: [String:String]) -> ([String:String], [String:String], [String:String]) {
+        var tempDict1 = dict, tempDict2: [String:String] = [:], tempDict3: [String:String] = [:], tempDict4: [String:String] = [:]
+        var newstr = "", pos = "", ner = ""
+        let sortedKeys = Array(tempDict1.keys).sorted(by: <)
+        var index = 0
+        
+        for (key, _) in tempDict1 {
+            let value = tempDict1[sortedKeys[index]]
+            newstr = lemmatize(word: value!)
+            tempDict2.updateValue(newstr, forKey: key)
+            pos = performPartsOfSpeech(word: value!)
+            tempDict3.updateValue(pos, forKey: key)
+            ner = NamedEntityRecognition(word: value!)
+            tempDict4.updateValue(ner, forKey: key)
+            index += 1
+        }
+
+        for (key,value) in tempDict4 {
+            if value == "N/A" {
+                tempDict4.removeValue(forKey: key)
+            }
+        }
+        return (tempDict2,tempDict3,tempDict4)
     }
 }

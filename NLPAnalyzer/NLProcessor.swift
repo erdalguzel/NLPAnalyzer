@@ -27,13 +27,17 @@ func determineLanguage(text: String) {
     print("Dominant languages is \(lang!)")
 }
 
-func tokenizeText(text: String) -> Dictionary<String, String> {
+func tokenizeText(text: String) -> [String:String] {
     var word_no: Int = 1
     tagger.string = text
     let range = NSRange(location: 0, length: text.utf16.count)
     tagger.enumerateTags(in: range, unit: .word, scheme: .tokenType, options: options){ tag, tokenRange, stop in
         let word = (text as NSString).substring(with: tokenRange)
-        tokenizeDict.updateValue(word, forKey: "Token-" + String(word_no))
+        var numstr = String(word_no)
+        for _ in numstr.count..<4 {
+            numstr = "0" + numstr
+        }
+        tokenizeDict.updateValue(word, forKey: "Token-" + numstr)
         word_no = word_no + 1
     }
     return tokenizeDict
@@ -160,11 +164,30 @@ func getSuffix(forString: String) -> String {
     return number
 }
 
-//func checkIfFileExists(filepath: String) {
-//    let filemanager = FileManager.default
-//    if filemanager.fileExists(atPath: filepath) {
-//        try! filemanager.removeItem(atPath: filepath)
-//    } else {
-//        print("No such file existed before.\n")
-//    }
-//}
+func getFilenames(path: String) -> [String] {
+    let manager = FileManager.default
+    let files = try! manager.contentsOfDirectory(atPath: path)
+    return files
+}
+
+//Extracts folder names when needed
+func extractFileName(filepath: NSString) -> String {
+    let lastComponent: NSString = filepath.deletingPathExtension as NSString
+    let filename = lastComponent.lastPathComponent
+    return filename
+}
+
+func directoryExists(path: String) -> Bool {
+    var isDirectory:ObjCBool = false
+    FileManager.default.fileExists(atPath: path, isDirectory: &isDirectory)
+    return isDirectory.boolValue
+}
+
+func isDirectory(filepath: String) -> Bool {
+    let s = extractFileName(filepath: filepath as NSString)
+    if s.contains(".") {
+        return false
+    } else {
+        return true
+    }
+}
