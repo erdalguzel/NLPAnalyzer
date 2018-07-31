@@ -171,17 +171,12 @@ func extractFileName(filepath: NSString) -> String {
     return filename
 }
 
-func directoryExists(path: String) -> Bool {
-    var isDirectory:ObjCBool = false
-    FileManager.default.fileExists(atPath: path, isDirectory: &isDirectory)
-    return isDirectory.boolValue
-}
-
 func isDirectory(filepath: String) -> Bool {
-    let s = extractFileName(filepath: filepath as NSString)
-    if s.contains(".") {
-        return false
-    } else {
+    let manager = FileManager.default
+    let url = URL(string: filepath)
+    if (url?.hasDirectoryPath)! {
         return true
+    } else {
+        return false
     }
 }

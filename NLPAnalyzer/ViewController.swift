@@ -15,8 +15,7 @@ class ViewController: NSViewController {
     var tokenDict: Dictionary<String, String> = [:]
     var entityRecognitionDict: Dictionary<String, String> = [:]
     var filenameArray: [String] = [], nameArray: [String] = []
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -63,24 +62,21 @@ class ViewController: NSViewController {
     
     
     @IBAction func startButton(_ sender: NSButton) {
-        let out_fname: String = ""
-        var inputFileString: String = ""
-        var outputFilepath: String = outputPathTextField.stringValue
-        let fileList = getFilenames(path: outputFilepath)
-//        print(fileList)
+        var inputFileString: String = "", filenames: [String] = []
+        let outputFilepath: String = outputPathTextField.stringValue, inputFilepath = inputPathTextField.stringValue, out_fname: String = ""
+        let tempPath = inputFilepath + "/"
 
-//        if !fileList.isEmpty {
-//            print("This is a directory\n")
-//            print("files:", fileList)
-//            for item in fileList {
-//                inputFileString = readTextFile(filepath: inputPathTextField.stringValue + item)
-//                outputFilepath += ("/" + item)
-//            }
-//        } else {
-//            print("This is a file\n")
-            inputFileString = readTextFile(filepath: inputPathTextField.stringValue)
+        if isDirectory(filepath: tempPath) {
+            filenames = getFilenames(path: tempPath)
+            for file in filenames {
+                let path = tempPath + file
+                inputFileString = readTextFile(filepath: path)
+                beginProcess(inputText: inputFileString, output_filename: extractFileName(filepath: tempPath as NSString), outputPath: outputFilepath)
+            }
+        } else {
+            inputFileString = readTextFile(filepath: inputFilepath)
             beginProcess(inputText: inputFileString, output_filename: out_fname, outputPath: outputFilepath)
-//        }
+        }
     }
     
     func beginProcess(inputText: String, output_filename: String, outputPath: String) {
