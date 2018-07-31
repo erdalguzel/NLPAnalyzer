@@ -1,5 +1,12 @@
 import Cocoa
 
+/*
+ Note:
+ Whenever you want to process a directory,
+ a forward slash must be put at the end of the input path
+ to process whole file.
+ */
+
 class ViewController: NSViewController {
     @IBOutlet weak var lemmatizeCheckBox: NSButton!
     @IBOutlet weak var tokenizeBox: NSButton!
@@ -9,13 +16,13 @@ class ViewController: NSViewController {
     @IBOutlet weak var inputPathTextField: NSTextField!
     @IBOutlet weak var outputPathTextField: NSTextField!
     @IBOutlet weak var progressBar: NSProgressIndicator!
-
+    
     var POSDict: Dictionary<String, String> = [:]
     var lemmaDict: Dictionary<String, String> = [:]
     var tokenDict: Dictionary<String, String> = [:]
     var entityRecognitionDict: Dictionary<String, String> = [:]
     var filenameArray: [String] = [], nameArray: [String] = []
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -64,14 +71,13 @@ class ViewController: NSViewController {
     @IBAction func startButton(_ sender: NSButton) {
         var inputFileString: String = "", filenames: [String] = []
         let outputFilepath: String = outputPathTextField.stringValue, inputFilepath = inputPathTextField.stringValue, out_fname: String = ""
-        let tempPath = inputFilepath + "/"
-
-        if isDirectory(filepath: tempPath) {
-            filenames = getFilenames(path: tempPath)
+        
+        if isDirectory(filepath: inputFilepath) {
+            filenames = getFilenames(path: inputFilepath)
             for file in filenames {
-                let path = tempPath + file
+                let path = inputFilepath + file
                 inputFileString = readTextFile(filepath: path)
-                beginProcess(inputText: inputFileString, output_filename: extractFileName(filepath: tempPath as NSString), outputPath: outputFilepath)
+                beginProcess(inputText: inputFileString, output_filename: extractFileName(filepath: inputFilepath as NSString), outputPath: outputFilepath)
             }
         } else {
             inputFileString = readTextFile(filepath: inputFilepath)
@@ -134,7 +140,7 @@ class ViewController: NSViewController {
             tempDict4.updateValue(ner, forKey: key)
             index += 1
         }
-
+        
         for (key,value) in tempDict4 {
             if value == "N/A" {
                 tempDict4.removeValue(forKey: key)
