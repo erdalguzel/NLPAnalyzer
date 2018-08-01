@@ -1,12 +1,5 @@
 import Cocoa
 
-/*
- Note:
- Whenever you want to process a directory,
- a forward slash must be put at the end of the input path
- to process whole file.
- */
-
 class ViewController: NSViewController {
     @IBOutlet weak var lemmatizeCheckBox: NSButton!
     @IBOutlet weak var tokenizeBox: NSButton!
@@ -15,7 +8,6 @@ class ViewController: NSViewController {
     
     @IBOutlet weak var inputPathTextField: NSTextField!
     @IBOutlet weak var outputPathTextField: NSTextField!
-//    @IBOutlet weak var progressBar: NSProgressIndicator!
     @IBOutlet weak var progressBar: NSProgressIndicator!
     
     
@@ -54,7 +46,6 @@ class ViewController: NSViewController {
         
         dialog.title = "Choose a path"
         dialog.showsResizeIndicator = true
-        dialog.showsHiddenFiles = false
         dialog.canChooseFiles = true
         dialog.canChooseDirectories = true
         
@@ -81,7 +72,7 @@ class ViewController: NSViewController {
                 for file in filenames {
                     let path = inputFilepath + "/" + file
                     inputFileString = readTextFile(filepath: path)
-                    self.beginProcess(inputText: inputFileString, output_filename: extractFileName(filepath: inputFilepath as NSString), outputPath: outputFilepath)
+                    self.beginProcess(inputText: inputFileString, output_filename: extractFileName(filepath: path as NSString), outputPath: outputFilepath)
                 }
                 DispatchQueue.main.async {
                     self.progressBar.increment(by: 50.0)
@@ -101,8 +92,8 @@ class ViewController: NSViewController {
     func beginProcess(inputText: String, output_filename: String, outputPath: String) {
         var temp_outfname = output_filename, temp_outPath = outputPath
         tokenDict = tokenizeText(text: inputText)
-        temp_outfname = extractFileName(filepath: inputPathTextField.stringValue as NSString)
-        temp_outfname = temp_outfname + ".morph.json"
+        temp_outfname = extractFileName(filepath: output_filename as NSString)
+        temp_outfname.append(".morph.json")
         (lemmaDict,POSDict,entityRecognitionDict) = fillDictionaries(dict: tokenDict)
         
         if tokenizeBox.state == .off {
@@ -125,13 +116,11 @@ class ViewController: NSViewController {
         writeAsJSONFile(paramDict1: tokenDict, paramDict2: lemmaDict, paramDict3: POSDict, filepath: temp_outPath)
         
         temp_outPath = outputPathTextField.stringValue
-        temp_outfname = extractFileName(filepath: inputPathTextField.stringValue as NSString)
-        temp_outfname += ".NER.json"
-        temp_outPath += ("/" + temp_outfname)
+        temp_outfname = extractFileName(filepath: output_filename as NSString)
+        temp_outfname.append(".NER.json")
+        temp_outPath.append(("/" + temp_outfname))
         if recognitionBox.state == .off {
-            for (k,_) in entityRecognitionDict {
-                entityRecognitionDict[k] = ""
-            }
+            entityRecognitionDict = [:]
         }
         writeNERAsJSONFile(paramDict: entityRecognitionDict, filepath: temp_outPath)
     }
