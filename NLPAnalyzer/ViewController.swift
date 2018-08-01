@@ -15,13 +15,16 @@ class ViewController: NSViewController {
     
     @IBOutlet weak var inputPathTextField: NSTextField!
     @IBOutlet weak var outputPathTextField: NSTextField!
+//    @IBOutlet weak var progressBar: NSProgressIndicator!
     @IBOutlet weak var progressBar: NSProgressIndicator!
+    
     
     var POSDict: Dictionary<String, String> = [:]
     var lemmaDict: Dictionary<String, String> = [:]
     var tokenDict: Dictionary<String, String> = [:]
     var entityRecognitionDict: Dictionary<String, String> = [:]
     var filenameArray: [String] = [], nameArray: [String] = []
+    let q1 = DispatchQueue(label: "Queue 1", qos: DispatchQoS.userInitiated), q2 = DispatchQueue(label: "Queue 2", qos: DispatchQoS.userInitiated)    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,15 +76,25 @@ class ViewController: NSViewController {
         let outputFilepath: String = outputPathTextField.stringValue, inputFilepath = inputPathTextField.stringValue, out_fname: String = ""
         
         if isDirectory(filepath: inputFilepath) {
-            filenames = getFilenames(path: inputFilepath)
-            for file in filenames {
-                let path = inputFilepath + file
-                inputFileString = readTextFile(filepath: path)
-                beginProcess(inputText: inputFileString, output_filename: extractFileName(filepath: inputFilepath as NSString), outputPath: outputFilepath)
+            q1.async {
+                filenames = getFilenames(path: inputFilepath)
+                for file in filenames {
+                    let path = inputFilepath + "/" + file
+                    inputFileString = readTextFile(filepath: path)
+                    self.beginProcess(inputText: inputFileString, output_filename: extractFileName(filepath: inputFilepath as NSString), outputPath: outputFilepath)
+                }
+                DispatchQueue.main.async {
+                    self.progressBar.increment(by: 50.0)
+                }
             }
         } else {
-            inputFileString = readTextFile(filepath: inputFilepath)
-            beginProcess(inputText: inputFileString, output_filename: out_fname, outputPath: outputFilepath)
+            q2.async {
+                inputFileString = readTextFile(filepath: inputFilepath)
+                self.beginProcess(inputText: inputFileString, output_filename: out_fname, outputPath: outputFilepath)
+            }
+            DispatchQueue.main.async {
+                self.progressBar.increment(by: 50.0)
+            }
         }
     }
     

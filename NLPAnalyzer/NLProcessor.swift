@@ -173,8 +173,8 @@ func extractFileName(filepath: NSString) -> String {
 
 func isDirectory(filepath: String) -> Bool {
     let manager = FileManager.default
-    let url = URL(string: filepath)
-    if (url?.hasDirectoryPath)! {
+    let url = URL(string: filepath + "/")
+    if (url?.hasDirectoryPath)! && manager.fileExists(atPath: (url?.absoluteString)!){
         return true
     } else {
         return false
